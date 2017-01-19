@@ -12,10 +12,10 @@ datetimeInfo t;
 LFile myFile;
 LGPRSClient client;
 gpsSentenceInfoStruct info;
+
 unsigned int rtc,rtcOld,myDate,Timer;
 char buff[256],data[256],response[256],stName[40];
 double latOld,longOld,latNew,longNew;
-
 char server[] = "dweet.io";
 int port = 80;
 char* thing ="aumgps%2Fanongsincar%2Fcar6445";
@@ -87,20 +87,20 @@ void parseGPGGA(const char* GPGGAstr)
     if (hour >= 24) hour -= 24; // hour between 0 to 23     
     tmp = getComma(2, GPGGAstr);
     latitude = getDoubleNumber(&GPGGAstr[tmp]);
-    latitude *= 0.01;// change 1435.9785 to 14.359785    
-    lat01 = (int)latitude+0.000001;    // change 1435.9785 to 14.599641
-    lat02 = latitude-lat01;            // change 1435.9785 to 14.599641
-    latitude = lat01 + lat02*100/60;   // change 1435.9785 to 14.599641    
+    latitude *= 0.01;                  // change xxxx.xxxx to xx.xxxxxx   
+    lat01 = (int)latitude+0.000001;    // change xxxx.xxxx to xx.xxxxxx 
+    lat02 = latitude-lat01;            // change xxxx.xxxx to xx.xxxxxx 
+    latitude = lat01 + lat02*100/60;   // change xxxx.xxxx to xx.xxxxxx   
     tmp = getComma(4, GPGGAstr);
     longitude = getDoubleNumber(&GPGGAstr[tmp]);
-    longitude *= 0.01;      // change 10021.7643 to 100.217643
-    lon01 = (int)longitude+0.000001;   // change 10021.7643 to 100.362738
-    lon02 = longitude-lon01;           // change 10021.7643 to 100.362738
-    longitude = lon01 + lon02*100/60;  // change 10021.7643 to 100.362738  
+    longitude *= 0.01;                 // change xxxxx.xxxx to xxx.xxxxxx
+    lon01 = (int)longitude+0.000001;   // change xxxxx.xxxx to xxx.xxxxxx
+    lon02 = longitude-lon01;           // change xxxxx.xxxx to xxx.xxxxxx
+    longitude = lon01 + lon02*100/60;  // change xxxxx.xxxx to xxx.xxxxxx 
     tmp = getComma(7, GPGGAstr);
     num = getIntNumber(&GPGGAstr[tmp]);
-    sprintf(buff,"UTC=%2d:%2d:%2d lat=%9.6f lon=%10.6f sat=%d", hour, minute, second, latitude, longitude, num); //Serial.println(buff); 
-    sprintf(data,"lat=%9.6f&lon=%10.6f", latitude, longitude); //Serial.println(buff); 
+    sprintf(buff,"UTC=%2d:%2d:%2d lat=%9.6f lon=%10.6f sat=%d", hour, minute, second, latitude, longitude, num); 
+    sprintf(data,"lat=%9.6f&lon=%10.6f", latitude, longitude);
     latNew = latitude;
     longNew = longitude;
   }else{
@@ -177,5 +177,5 @@ void loop() {
     i++;
   }
   if(!client.connected()) client.stop();
-  delay(1000);
+  delay(2000);
 }
