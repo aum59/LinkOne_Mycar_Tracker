@@ -11,4 +11,6 @@ This's Version 0.1
     (delay per loop use 4 sec. and send data to server use 3 sec.)
 
 <br>
+
+
 ![](LinkitOneConnected.png)
